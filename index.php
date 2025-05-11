@@ -1,3 +1,8 @@
+<?php
+    require("config/conexao.php");
+
+?>
+
 <!DOCTYPE html>
 <html lang="pt-br">
 
@@ -5,7 +10,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Login</title>
-    <link href="/css/estilo.css" rel="stylesheet">
+    <link href="css/estilo.css" rel="stylesheet">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" rel="stylesheet">
 </head>
 
@@ -26,7 +31,7 @@
         </div>
 
         <button class="btn-blue" type="submit">Fazer login</button>
-        <a href="cadastrar.html">Ainda não tenho cadastro</a>
+        <a href="cadastrar.php">Ainda não tenho cadastro</a>
 
     </form>
 

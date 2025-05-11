@@ -23,7 +23,17 @@
         $pdo->setAttribute(PDO::ATTR_ERRMODE,PDO::ERRMODE_EXCEPTION);
 
     }catch(PDOException $erro){
-        echo "Falha ao se conectar com o banco!";
+        echo "Falha ao se conectar com o banco! ".$erro->getMessage();
+    }
+
+
+    //função para tratar os dados no back-end
+    function limparPost($dados){
+        $dados = trim($dados);
+        $dados = stripslashes($dados);
+        $dados = htmlspecialchars($dados);
+
+        return $dados;
     }
 
 ?>

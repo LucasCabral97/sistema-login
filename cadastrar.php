@@ -13,6 +13,10 @@
             $nome = limparPost($_POST['nome_completo']);
             $email = limparPost($_POST['email']);
             $senha = limparPost($_POST['senha']);
+            
+            // ****criptografando a senha******
+            $senha_cript=sha1($senha);
+
             $repete_senha = limparPost($_POST['repete_senha']);
             $checkbox = limparPost($_POST['termos']);
 
@@ -41,6 +45,33 @@
                 $erro_checkbox = "Desativado!";
             }
 
+            if(!isset($erro_checkbox) && !isset($erro_email) && !isset($erro_geral) && !isset($erro_nome) && !isset($erro_repete_senha) && !isset($erro_senha)){
+                //1º verificar se o usuario ja está cadastrado no banco
+                $sql = $pdo->prepare("SELECT * FROM usuarios WHERE email=? LIMIT 1");
+                $sql->execute(array($email));
+
+                $usuario = $sql->fetch();
+                
+                //se não existir usuario - adicionar no banco
+                if(!$usuario){
+                    //incluir usuário no banco
+
+                    $recupera_senha="";
+                    $token=""; //vai ser criado no login
+                    $status="novo";
+                    $data_cadastro = date('d/m/Y');
+                    
+                    $sql = $pdo->prepare("INSERT INTO usuarios VALUES (null,?,?,?,?,?,?,?)");
+                    if($sql->execute(array($nome,$email,$senha_cript,$recupera_senha,$token,$status,$data_cadastro))){
+                        header('location: index.php');
+                    }
+
+                }else{
+                    //já existe usuario, apresentar erro
+                    $erro_geral = "Usuário já cadastrado";
+                }
+            }
+
         }
     }
 
@@ -64,18 +95,20 @@
 
         <?php if(isset($erro_geral)){?>
             <div class="erro-geral animate__animated animate__rubberBand">
-            <?php echo $erro_geral;?>
+                <?php echo $erro_geral;?>
             </div>
         <?php } ?>
 
         <!-- campo nome -->
         <div class="input-group ">
             <img class="input-icon" src="img/card.png">
-            <input <?php if(isset($erro_geral) || isset($erro_nome)){echo 'class="erro-input"';}?> type="text" name="nome_completo" placeholder="Nome Completo" required>
-            
+            <input <?php if(isset($erro_geral) || isset($erro_nome)){echo 'class="erro-input"' ;}?> type="text"
+            name="nome_completo" placeholder="Nome Completo"
+            <?php if(isset($nome)){ echo "value='$nome'";}?> required>
+
             <!-- se houver será apresentando o erro desse input -->
             <?php if(isset($erro_nome)){?>
-                <div class="erro">
+                <div class="erro" style="font-size: 13px">
                     <?php echo $erro_nome?>
                 </div>
             <?php }?>
@@ -84,11 +117,13 @@
         <!-- campo email -->
         <div class="input-group">
             <img class="input-icon" src="img/user.png">
-            <input <?php if(isset($erro_geral) || isset($erro_email)){echo 'class="erro-input"';}?> type="email" name="email" placeholder="Digite seu email" required>
-            
+            <input <?php if(isset($erro_geral) || isset($erro_email)){echo 'class="erro-input"' ;}?> type="email"
+            name="email" placeholder="Digite seu email"
+            <?php if(isset($nome)){ echo "value='$email'";}?>required>
+
             <!-- se houver será apresentando o erro desse input -->
             <?php if(isset($erro_email)){?>
-                <div class="erro">
+                <div class="erro" style="font-size: 13px">
                     <?php echo $erro_email?>
                 </div>
             <?php }?>
@@ -97,11 +132,12 @@
         <!-- campo senha -->
         <div class="input-group">
             <img class="input-icon" src="img/lock.png">
-            <input <?php if(isset($erro_geral) || isset($erro_senha)){echo 'class="erro-input"';}?> type="password" name="senha" placeholder="Senha mínimo 6 digitos" required>
-            
+            <input <?php if(isset($erro_geral) || isset($erro_senha)){echo 'class="erro-input"' ;}?> type="password"
+            name="senha" placeholder="Senha mínimo 6 digitos" required>
+
             <!-- se houver será apresentando o erro desse input -->
             <?php if(isset($erro_senha)){?>
-                <div class="erro">
+                <div class="erro" style="font-size: 13px">
                     <?php echo $erro_senha?>
                 </div>
             <?php }?>
@@ -110,23 +146,25 @@
         <!-- campo repetição senha -->
         <div class="input-group">
             <img class="input-icon" src="img/lock-open.png">
-            <input <?php if(isset($erro_geral) || isset($erro_repete_senha)){echo 'class="erro-input"';}?> type="password" name="repete_senha" placeholder="Repita a senha" required>
-           
+            <input <?php if(isset($erro_geral) || isset($erro_repete_senha)){echo 'class="erro-input"' ;}?>
+            type="password" name="repete_senha" placeholder="Repita a senha" required>
+
             <!-- se houver será apresentando o erro desse input -->
             <?php if(isset($erro_repete_senha)){?>
-                <div class="erro">
+                <div class="erro" style="font-size: 13px">
                     <?php echo $erro_repete_senha?>
                 </div>
             <?php }?>
         </div>
 
         <!-- campo termos -->
-        <div <?php if(isset($erro_geral) || isset($erro_checkbox)){echo 'class="erro-input input-group"';}else{echo 'class="input-group"';}?>>
+        <div <?php if(isset($erro_geral) || isset($erro_checkbox)){echo 'class="erro-input input-group"'
+            ;}else{echo 'class="input-group"' ;}?>>
             <input type="checkbox" name="termos" id="termos" value="ok" required>
             <label for="termos">Ao se cadastrar você concorda com a nossa <a class="link" href="#">Política de
                     Privacidade</a> e os
-            <a class="link" href="#">Termos de uso</a>.</label>
-            
+                <a class="link" href="#">Termos de uso</a>.</label>
+
             <!-- se houver será apresentando o erro desse input -->
             <?php if(isset($erro_checkbox)){?>
                 <div class="erro">

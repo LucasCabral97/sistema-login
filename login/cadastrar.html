@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cadastrar</title>
+    <link href="/css/estilo.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" rel="stylesheet">
+</head>
+
+<body>
+
+    <form method="post">
+        <h1>Cadastrar</h1>
+
+        <div class="erro-geral animate__animated animate__rubberBand">
+            erro
+        </div>
+
+
+        <div class="input-group ">
+            <img class="input-icon" src="img/card.png">
+            <input type="text" name="" id="" placeholder="Nome Completo">
+            <div class="erro">Por favor informe um nome válido!</div>
+        </div>
+
+        <div class="input-group">
+            <img class="input-icon" src="img/user.png">
+            <input type="email" name="" id="" placeholder="Digite seu email">
+        </div>
+
+        <div class="input-group">
+            <img class="input-icon" src="img/lock.png">
+            <input type="password" name="" id="" placeholder="Senha mínimo 6 digitos">
+        </div>
+
+        <div class="input-group">
+            <img class="input-icon" src="img/lock-open.png">
+            <input type="password" name="" id="" placeholder="Repita a senha">
+        </div>
+
+        <div class="input-group">
+            <input type="checkbox" name="termos" id="termos" value="ok">
+            <label for="termos">Ao se cadastrar você concorda com a nossa <a class="link" href="#">Política de
+                    Privacidade</a> e os
+                <a class="link" href="#">Termos de uso</a>.</label>
+        </div>
+
+        <button class="btn-blue" type="submit">Cadastrar</button>
+        <a href="index.html">Já tenho uma conta</a>
+
+    </form>
+
+</body>
+
+</html>

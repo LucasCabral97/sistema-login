@@ -12,17 +12,6 @@
         header("location: index.php");
     }else{
         echo "<h1> SEJA BEM-VINDO <b style='color:red'>".$usuario['nome']."!</b></h1>";
+        echo "<br><br><a style='background:green; text-decoration:none; color:white; padding:20px; border-radius:5px;' href='logout.php'>Sair do sistema</a>";
     }
 ?>
-
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-</head>
-<body>
-    
-</body>
-</html>

@@ -63,7 +63,7 @@
                     
                     $sql = $pdo->prepare("INSERT INTO usuarios VALUES (null,?,?,?,?,?,?,?)");
                     if($sql->execute(array($nome,$email,$senha_cript,$recupera_senha,$token,$status,$data_cadastro))){
-                        header('location: index.php');
+                        header('location: index.php?result=ok');
                     }
 
                 }else{

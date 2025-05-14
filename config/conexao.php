@@ -1,5 +1,7 @@
 <?php
     // dois modos possíveis -> local, producao
+    session_start();
+
     $modo = 'local';
 
     if($modo=='local'){

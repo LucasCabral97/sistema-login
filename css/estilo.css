@@ -129,9 +129,6 @@ label {
     padding: 20px;
     border-radius: 5px;
     margin-bottom: 15px;
-
-    /* animação */
-
 }
 
 .erro-input {
@@ -143,4 +140,18 @@ label {
     text-align: center;
     margin-bottom: 10px;
     font-weight: bold;
+}
+
+.sucesso {
+    background-color: #0dc225;
+    color: white;
+    font-weight: bold;
+
+    padding: 20px;
+    border-radius: 5px;
+    margin-bottom: 15px;
+}
+
+.oculto {
+    display: none;
 }

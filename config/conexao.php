@@ -38,4 +38,21 @@
         return $dados;
     }
 
+    function auth($token){
+        global $pdo;
+        // verificar se tem autorização
+        $sql = $pdo->prepare("SELECT * FROM usuarios WHERE token=? LIMIT 1");
+        $sql->execute(array($token));
+
+        $usuario = $sql->fetch(PDO::FETCH_ASSOC);
+
+        // se não encontrar o usuario
+        if(!$usuario){
+            return false;
+        }else{
+           return $usuario;
+        }
+
+    }
+
 ?>

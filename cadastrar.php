@@ -58,12 +58,44 @@
 
                     $recupera_senha="";
                     $token=""; //vai ser criado no login
+                    $codigo_confirmacao= uniqid();
                     $status="novo";
                     $data_cadastro = date('d/m/Y');
                     
-                    $sql = $pdo->prepare("INSERT INTO usuarios VALUES (null,?,?,?,?,?,?,?)");
-                    if($sql->execute(array($nome,$email,$senha_cript,$recupera_senha,$token,$status,$data_cadastro))){
-                        header('location: index.php?result=ok');
+                    $sql = $pdo->prepare("INSERT INTO usuarios VALUES (null,?,?,?,?,?,?,?,?)");
+                    if($sql->execute(array($nome,$email,$senha_cript,$recupera_senha,$token,$codigo_confirmacao,$status,$data_cadastro))){
+                        
+                        //se o modo for local -> variavel esta em config/conexao.php
+                        if($modo=="local"){
+                            header('location: index.php?result=ok');
+                        }
+
+                        //se o modo for producao -> variavel esta em config/conexao.php
+                        if($modo=="producao"){
+
+                            //enviar email para o usuário
+                            try{
+
+                                $mail = new PHPMailer(true);
+
+                                //Remetente e Destinatário
+                                $mail->setFrom('sistema@emailsistema.com', 'Sistema de Login');//quem esta enviando email
+                                $mail->addAddress($email, $nome);//quem vai receber o email
+                               
+                                //Conteudo do email
+                                $mail->isHTML(true);     //corpo do email como HTML
+                                $mail->Subject = 'Confirme seu cadastro!'; //Titulo do email
+                                $mail->Body    = '<h1>Por favor confirme se e-mail abaixo:</h1><br><br>
+                                                  <a style="background:green; text-decoration:none; color:white; padding:20px; border-radius:5px;" href="https://seusitema.com.br/confirmacao.php?cod_confirm='.$codigo_confirmacao.'">Confirmar E-mail.</a>';//corpo do email
+
+                                $mail->send();
+                                header("location: obrigado.php");    
+                            } catch (Exception $e) {
+                                echo "Houve um problema ao enviar o e-mail de confirmação!<br>{$mail->ErrorInfo}";
+                            }
+                            
+                        }
+
                     }
 
                 }else{

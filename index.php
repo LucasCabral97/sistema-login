@@ -16,21 +16,27 @@
 
         if($usuario){
             //existe um usuário
-            //criar um token para o usúario
-            $token = sha1(uniqid().date('d-m-Y-H-i-s'));
+            
+            //agora verificar se o usuário foi confirmado
+            if($usuario['status']=="confirmado"){
+                //criar um token para o usúario
+                $token = sha1(uniqid().date('d-m-Y-H-i-s'));
 
-            //atualizar o token desse usuário no banco
-            $sql = $pdo->prepare("UPDATE usuarios SET token=? WHERE email=? AND senha=?");
-            if($sql->execute(array($token,$email,$senha_cript))){
-                //armazenar este token na sessao (SESSION)
-                $_SESSION['TOKEN']=$token;//----> sessão iniciada na config/conexao.php
-                
-                //redirecionando para outra página
-                header('location: restrita.php');
+                //atualizar o token desse usuário no banco
+                $sql = $pdo->prepare("UPDATE usuarios SET token=? WHERE email=? AND senha=?");
+                if($sql->execute(array($token,$email,$senha_cript))){
+                    //armazenar este token na sessao (SESSION)
+                    $_SESSION['TOKEN']=$token;//----> sessão iniciada na config/conexao.php
+                    
+                    //redirecionando para outra página
+                    header('location: restrita.php');
+                }
+            }else{
+                $erro_login = "Por favor confirme o cadastro no seu <br>e-mail cadastrado!";
             }
             
         }else{
-            $erro_login = "Usuário ou senha incorretos!";
+            $erro_login = "Usuário e/ou senha incorretos!";
         }
     }
 
@@ -60,7 +66,7 @@
         <?php }?>
 
         <?php if(isset($erro_login)){?>
-            <div class="erro-geral animate__animated animate__rubberBand">
+            <div style="text-align:center;" class="erro-geral animate__animated animate__rubberBand">
                 <?php echo $erro_login;?>
             </div>
         <?php } ?>
@@ -88,7 +94,7 @@
             //escondendo a informação de cadastrado com sucesso
             setTimeout(() => {
                 $('.sucesso').addClass('oculto');
-            }, 2000);
+            }, 4000);
         </script>
     <?php }?>
 
@@ -98,7 +104,7 @@
             //escondendo a informação de cadastrado com sucesso
             setTimeout(() => {
                 $('.erro-geral').addClass('oculto');
-            }, 2000);
+            }, 4000);
         </script>
     <?php }?>
 

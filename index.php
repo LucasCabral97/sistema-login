@@ -89,6 +89,7 @@ if (isset($_POST['login']) && isset($_POST['email']) && isset($_POST['senha']) &
             <input type="password" name="senha" placeholder="Digite sua senha" required>
         </div>
 
+        <a href="esqueci.php">Esqueceu a senha?</a>
         <button class="btn-blue" type="submit" name="login">Fazer login</button>
         <a href="cadastrar.php">Ainda não tenho cadastro</a>
 

@@ -39,10 +39,11 @@ if ($user) {
 </head>
 
 <body style="background: #eeeeee;">
-    <nav class="navbar navbar-expand-lg" style="background-color:white  " data-bs-theme="light">
-        <div class="container-fluid"><a class="navbar-brand text-success" href="#">Seja bem vindo <b><?php echo $nomeUsuario; ?></b>!</a><button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarColor03" aria-controls="navbarColor03" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
+    <nav class="navbar navbar-expand-lg" style="background-color:white;" data-bs-theme="light">
+        <div class="container-fluid">
+            <div class="text-success fs-4">Seja bem vindo <b><?php echo $nomeUsuario; ?></b>!</div>
             <div class="collapse navbar-collapse" id="navbarColor03">
-                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                <ul class="navbar-nav me-auto mb-3 mb-lg-0">
                     <li class="nav-item"><a class="nav-link active" aria-current="page" href="#">Alterar Cadastro</a></li>
                     <li class="nav-item"><a class="nav-link active" aria-current="page" href="#">Option 1</a></li>
                     <li class="nav-item"><a class="nav-link active" aria-current="page" href="#">Option 2</a></li>
@@ -61,6 +62,14 @@ if ($user) {
         }
     }
     ?>
+
+    <form method="post">
+        <div>
+
+        </div>
+    </form>
+
+
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js" integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.6/dist/js/bootstrap.min.js" integrity="sha384-RuyvpeZCxMJCqVUGFI0Do1mQrods/hhxYlcVfGPOfQtPJh0JCw12tUAZ/Mv10S7D" crossorigin="anonymous"></script>
 </body>

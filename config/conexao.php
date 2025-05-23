@@ -12,10 +12,10 @@ if ($modo == 'local') {
 }
 
 if ($modo == 'producao') {
-    $servidor = "localhost";
-    $usuario = "";
-    $senha = "";
-    $banco = "login";
+    $servidor = "*********";
+    $usuario = "*********";
+    $senha = '**********';
+    $banco = "**********";
 }
 
 

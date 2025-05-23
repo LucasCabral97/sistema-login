@@ -94,11 +94,13 @@ if (isset($_POST['nome_completo']) && isset($_POST['email']) && isset($_POST['se
                             //Conteudo do email
                             $mail->isHTML(true);     //corpo do email como HTML
                             $mail->Subject = 'Confirme seu cadastro!'; //Titulo do email
-                            $mail->Body    = '<h1>Por favor confirme se e-mail abaixo:</h1><br><br>
-                                                  <a style="background:green; text-decoration:none; color:white; padding:20px; border-radius:5px;" href="http://loginphp.sa-east-1.elasticbeanstalk.com/confirmacao.php?cod_confirm=' . $codigo_confirmacao . '">Confirmar E-mail.</a>'; //corpo do email
+                            $mail->Body    = '<h1>Por favor confirme e-mail abaixo:</h1><br>
+                                                  <a style="background:green; text-decoration:none; color:white; padding:20px; border-radius:5px;" href="https://developerlcs.com.br/sistema-login/confirmacao.php?cod_confirm=' . $codigo_confirmacao . '">Confirmar E-mail.</a><br><br>
+                                                  <p>Atenciosamente;</p>
+                                                  <p>Equipe do login.</p>'; //corpo do email
 
                             $mail->send();
-                            header("location: obrigado.php");
+                            header("location: obrigado.html");
                         } catch (Exception $e) {
                             echo "Houve um problema ao enviar o e-mail de confirmação!<br>{$mail->ErrorInfo}";
                         }
